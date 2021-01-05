@@ -3,99 +3,44 @@ import React, { Component } from 'react'
 import { PickerView } from 'antd-mobile'
 
 import FilterFooter from '../../../../components/FilterFooter'
-
-const province = [
-  {
-    label: '北京',
-    value: '01',
-    children: [
-      {
-        label: '东城区',
-        value: '01-1'
-      },
-      {
-        label: '西城区',
-        value: '01-2'
-      },
-      {
-        label: '崇文区',
-        value: '01-3'
-      },
-      {
-        label: '宣武区',
-        value: '01-4'
-      }
-    ]
-  },
-  {
-    label: '浙江',
-    value: '02',
-    children: [
-      {
-        label: '杭州',
-        value: '02-1',
-        children: [
-          {
-            label: '西湖区',
-            value: '02-1-1'
-          },
-          {
-            label: '上城区',
-            value: '02-1-2'
-          },
-          {
-            label: '江干区',
-            value: '02-1-3'
-          },
-          {
-            label: '下城区',
-            value: '02-1-4'
-          }
-        ]
-      },
-      {
-        label: '宁波',
-        value: '02-2',
-        children: [
-          {
-            label: 'xx区',
-            value: '02-2-1'
-          },
-          {
-            label: 'yy区',
-            value: '02-2-2'
-          }
-        ]
-      },
-      {
-        label: '温州',
-        value: '02-3'
-      },
-      {
-        label: '嘉兴',
-        value: '02-4'
-      },
-      {
-        label: '湖州',
-        value: '02-5'
-      },
-      {
-        label: '绍兴',
-        value: '02-6'
-      }
-    ]
-  }
-]
-
+/**
+ * 1- 选中当前picker的值
+ * 2- 在当前组件中,声明value值,通过组件传值的方式,进行值的传递
+ *
+*/
 export default class FilterPicker extends Component {
-  render() {
+  // 需要给当前的value提供一个默认值,该默认值,是选中后,点击确定按钮以后保存的选中的默认值
+  state = {
+    value: this.props.defaultSelectValues
+  }
+  handleValue = (value) => {
+    this.setState(() => {
+      return { value }
+    })
+  }
+  render () {
+    const { onCancel, data, cols, onSave, type } = this.props
+    const { value } = this.state
     return (
       <>
-        {/* 选择器组件： */}
-        <PickerView data={province} value={null} cols={3} />
+        {/*
+          选择器组件：
+          1- 选择器组件,受控于表单的onChange事件
+        */}
+        <PickerView data={data} value={value} cols={cols} onChange={this.handleValue} />
 
-        {/* 底部按钮 */}
-        <FilterFooter />
+        {/*
+        底部按钮
+        1- 使用子传父的方式,进行数据传递
+        2- 把当前的value值,通过子组件传值的方式,传递给父组件,并且这个是一个方法,传递的是一个实参
+        3- 形参位置,需要在父组件中,进行声明
+        */}
+        <FilterFooter onCancel={()=>{
+            onCancel(type)
+        }}
+        onSave={() => {
+          onSave(type, value)
+        }} />
       </>
     )
   }

@@ -9,7 +9,8 @@ export const getCurrentCity = () => {
   if (!localCity) {
     // 4 如果没有，就使用首页中获取定位城市的代码来获取，并且存储到本地存储中，然后返回该城市数据
     return new Promise((resolve, reject) => {
-      const curCity = new window.BMap.LocalCity()
+      const curCity = new window.AMap.LocalCity()
+
       curCity.get(async res => {
         try {
           // console.log('当前城市信息：', res)
@@ -17,7 +18,6 @@ export const getCurrentCity = () => {
             `http://localhost:8080/area/info?name=${res.name}`
           )
           // result.data.body => { label: '上海', value: '' }
-
           // 存储到本地存储中
           localStorage.setItem('hkzf_city', JSON.stringify(result.data.body))
           // 返回该城市数据
@@ -41,5 +41,4 @@ export { API } from './api'
 export { BASE_URL } from './url'
 // 导出 auth 模块中的所有内容
 export * from './auth'
-
 export * from './city'

@@ -3,7 +3,7 @@ import { NavBar, Icon, Toast } from 'antd-mobile'
 import { List, AutoSizer } from 'react-virtualized'
 
 import { getAreaCity, getAreaHot } from './api.js'
-import { getCurrCity, setCity } from '../../utils/getCurrCity'
+import { getCurrCity } from '../../utils/getCurrCity'
 import './index.scss'
 // 创建热门城市数组
 const hotCity = ['北京', '上海', '广州', '深圳']
@@ -77,7 +77,8 @@ class cityList extends React.Component {
               // 将来整租/合租的数据和当前城市有关系->这里只有Hot的城市有数据
               if (hotCity.includes(item.label)) {
                 // 1. 修改ls的数据
-                setCity({ label: item.label, value: item.value })
+                // setCity()
+                window.localStorage.setItem(JSON.stringify({ label: item.label, value: item.value }))
                 // 2. 回到首页
                 this.props.history.goBack()
               } else {

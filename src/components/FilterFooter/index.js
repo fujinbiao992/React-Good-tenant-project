@@ -9,13 +9,14 @@ function FilterFooter({
   cancelText = '取消',
   okText = '确定',
   onCancel,
-  onOk,
+  onSave,
   className,
   style
-}) {
+})
+ {
   return (
     <Flex style={style} className={[styles.root, className || ''].join(' ')}>
-      {/* 取消按钮 */}
+      {/* 取消按钮--创建点击事件,关闭组件 */}
       <span
         className={[styles.btn, styles.cancel].join(' ')}
         onClick={onCancel}
@@ -24,7 +25,9 @@ function FilterFooter({
       </span>
 
       {/* 确定按钮 */}
-      <span className={[styles.btn, styles.ok].join(' ')} onClick={onOk}>
+      <span className={[styles.btn, styles.ok].join(' ')} onClick={()=>{
+        onSave()
+      }}>
         {okText}
       </span>
     </Flex>
@@ -36,7 +39,7 @@ FilterFooter.propTypes = {
   cancelText: PropTypes.string,
   okText: PropTypes.string,
   onCancel: PropTypes.func,
-  onOk: PropTypes.func,
+  onSave: PropTypes.func,
   className: PropTypes.string,
   style: PropTypes.object
 }

@@ -20,9 +20,6 @@
 .selected {
   color: #21b97a;
 }
-.selected2 {
-  color: red;
-}
 
 .selected:global(.icon-arrow) {
   color: #21b97a;

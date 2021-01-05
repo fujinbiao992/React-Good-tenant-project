@@ -93,9 +93,9 @@ class HomeIndex extends React.Component {
     this.getCurrCityName()
   }
   // 排除轮播图警告
-  componentWillMount () {
-    this.autoplay = false
-  }
+  // componentWillMount () {
+  //   this.autoplay = false
+  // }
   // 轮播图
   renderCarousel = () => {
     return this.state.swiperData.map(item => (

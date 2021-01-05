@@ -11,7 +11,7 @@ import './index.css'
 // 导入assets中的iconfont资源
 import '../../assets/fonts/iconfont.css'
 // 导入tabbar模拟假数据
-import {tabbarData} from './tabbar.json'
+import { tabbarData } from './tabbar.json'
 class Home extends React.Component {
   state = {
     // 点击当前路由模块,刷新之后,应该保留住,当前的状态
@@ -31,7 +31,7 @@ class Home extends React.Component {
         onPress={() => {
           this.props.history.push(item.path)
           this.setState({
-            selectedTab:item.path,
+            selectedTab: item.path,
           });
         }}
       >
@@ -62,25 +62,3 @@ class Home extends React.Component {
 }
 
 export default Home
-
-
-
-/**
-  <TabBar.Item
-    title="首页"
-    key="Life"
-    icon={<i className="iconfont icon-ind"></i>}
-    selectedIcon={<i className="iconfont icon-ind"></i>}
-    selected={this.state.selectedTab === '/home/index'}
-    onPress={() => {
-      this.props.history.push('/home/index')
-      this.setState({
-        selectedTab: '/home/index',
-      });
-    }}
-  >
-  </TabBar.Item>
- *
- *
- *
-*/

@@ -1,10 +1,6 @@
 import React from 'react'
-
 import { Flex } from 'antd-mobile'
-
 import styles from './index.module.css'
-console.log(styles.selected)
-
 // 条件筛选栏标题数组：
 const titleList = [
   { title: '区域', type: 'area' },
@@ -19,6 +15,7 @@ export default function FilterTitle (props) {
   const renderTitle = () => {
     return titleList.map(item => (
       <Flex.Item
+      align="center"
         key={item.type}
         onClick={() => {
           onTitleClick(item.type)
@@ -29,7 +26,7 @@ export default function FilterTitle (props) {
         <span
           className={[
             styles.dropdown,
-            titleSelectedStatus[item.type] ? styles.selected2 : ''].join(' ')}>
+            titleSelectedStatus[item.type] ? styles.selected : ''].join(' ')}>
           <span>{item.title}</span>
           <i className="iconfont icon-arrow" />
         </span>
