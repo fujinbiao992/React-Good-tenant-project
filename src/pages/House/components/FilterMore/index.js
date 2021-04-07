@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import FilterFooter from '../../../../components/FilterFooter'
 
 import styles from './index.module.css'
-import Item from 'antd-mobile/lib/popover/Item'
+// import Item from 'antd-mobile/lib/popover/Item'
 
 export default class FilterMore extends Component {
   // 渲染标签
@@ -13,7 +13,7 @@ export default class FilterMore extends Component {
     if (data.length !== 0) {
       dataTemplate = data.map((item, index) => {
         return (
-          <span 
+          <span
             key={index}
             className={[styles.tag, styles.tagActive].join(' ')}>{item.label}</span>
         )

@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavBar, Icon, Toast } from 'antd-mobile'
 import { List, AutoSizer } from 'react-virtualized'
-
 import { getAreaCity, getAreaHot } from './api.js'
 import { getCurrCity } from '../../utils/getCurrCity'
 import './index.scss'

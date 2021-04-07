@@ -9,7 +9,7 @@ const { value = 'AREA|88cff55c-aaa4-e2e0' } = getCity()
 // 创建高亮显示假数据
 const titleSelectedStatus = {
   area: false,
-  mode: true,
+  mode: false,
   price: false,
   more: false
 }
@@ -37,7 +37,7 @@ export default class Filter extends Component {
           filterData: data.body
         }
       }, () => {
-        // console.log(data)
+        // console.log(data.body)
       })
     }
   }
@@ -68,8 +68,19 @@ export default class Filter extends Component {
     })
   }
   // 创建方法-确定关闭FilterPicker组件
+
   onSave = (key, value) => {
+    /**
+   * onSave方法主要职责
+   * 1- 关闭Picker
+   * 2- 如果选择了Picker --- 选中高亮
+   * 3- 如果没有选择Picker ---- 取消高亮
+   * 4- 调用其父组件传递的方法loadHousesByCondition()方法-该方法的作用是完成异步数据请求
+   *
+  */
     const { titleSelectedStatus, selectedValues } = this.state
+    // 获取housesList组件中属性传递来的值
+    const { loadHousesByCondition } = this.props
     const newTitleSelectedStatus = titleSelectedStatus
     const SelValues = value
     // 根据旧数据(未选中的数据)selectedValues,进行组装一个新的对象
@@ -87,7 +98,6 @@ export default class Filter extends Component {
       // 取消高亮
       newTitleSelectedStatus[key] = false
     }
-
     // 1- 获取已经选择好的值
     let filters = {}
     // 获取'区域'中的area属性
@@ -96,7 +106,6 @@ export default class Filter extends Component {
     let areaKey = area[0]
     let areaValue
     // 2- 区域/地铁
-    //    2-1 判断有值的几种状态
     /**
      * 1- 根据area中的几种情况,进行判断
      * ! 2- 如果area中的第三个值,为null,那么把area中的第二项赋值
@@ -123,7 +132,6 @@ export default class Filter extends Component {
     }
     // 动态的添加一个Key值,用来保存最新选中的条件项
     filters[areaKey] = areaValue
-    console.log(filters);
     // 3- 方式
     const mode = newSelectedValues.mode
     filters.rentType = mode[0]
@@ -131,8 +139,10 @@ export default class Filter extends Component {
     const prices = newSelectedValues.price
     filters.price = prices[0]
 
+    loadHousesByCondition(filters)
+    // console.log(filters);
+    // console.log(loadHousesByCondition(filters));
 
-    console.log(filters)
     this.setState(state => {
       return {
         openType: '',
@@ -218,6 +228,7 @@ export default class Filter extends Component {
       return null
     }
   }
+  // 抽取最后一个选项为单独的方法
   renderFilterMore = () => {
     const { openType, filterData: { characteristic, floor, oriented, roomType } } = this.state
     const data = { characteristic, floor, oriented, roomType }
